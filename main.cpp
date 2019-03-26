@@ -8,7 +8,9 @@
 
 #include <iostream> 
 #include <string>
-#include <fstream>  
+#include <fstream>
+#include <stdio.h> 
+#include <stdlib.h>   
 #include "token.h"
 
 using namespace std; 
@@ -29,5 +31,18 @@ int main(int argc, char*argv[]){
      ifstream infile;
     // processFile(infile,filename);
   }
- return 0;  
-} 
+  //take first argument and turn into file with .input1 as file name
+  else if  (argc == 2) {
+  string file = argv[1];
+  string filename = file + ".input1";
+  ifstream infile;
+ // processFile(infile,filename);
+   }
+  //If another file is piped
+   else if (argc > 2 ){
+   cout << "Too many command arguments, ending program" << endl;
+   exit(EXIT_FAILURE);
+  }
+   return 0;
+   }
+   
