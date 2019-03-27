@@ -5,10 +5,14 @@
 #define SCANNER_H
 #include <string> 
 class Scanner{ 
-
-public:   
-   void makeToken(string,int);
-   void checkType(char,int); 
+	int lineNum; 
+public:
+   int getLine();  
+   void setLine();     
+   void makeToken(string);
+   bool checkDelimiter(char);
+   bool checkKeyword(string); 
+   int  nextState(string);  
    Scanner(); 
 }; 
 
