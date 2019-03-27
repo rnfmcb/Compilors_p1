@@ -3,7 +3,10 @@
 //Program Translation 
 
 #include <iostream>
-#include <ctype.h>  
+#include <ctype.h>
+#include <fstream>
+#include <sstream> 
+#include <string>    
 #include "token.h"
 #include "scanner.h"  
 
@@ -109,7 +112,7 @@ bool Scanner::checkKeyword(string word){
 } 
 
 //This functions gets the next state 
-int Scanner::nextState (string s){
+int Scanner::table (string s){
   string type;   
   char p[s.length()];    
     for (int i = 0; i < sizeof(p); i++) { 
@@ -151,5 +154,23 @@ int Scanner::nextState (string s){
   }  		  
 }
 
+
+void Scanner::processFile(ifstream &infile,string filename){ 
+	string line; 
+	infile.open(filename.c_str()); 
+	if(!infile){ 
+		cout << "Error opening file" << endl; 
+	} 
+
+	string word;	 
+	while(getline(infile,line)){   
+		setLine();
+		istringstream stm(line); 
+			while(stm >> word)   
+	        { 
+			cout << table(word) << endl; 
+    	    } 
+     } 
+} 
 
 

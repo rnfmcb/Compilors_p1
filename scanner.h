@@ -4,6 +4,9 @@
 #ifndef SCANNER_H
 #define SCANNER_H
 #include <string> 
+#include <iostream> 
+#include <fstream> 
+
 class Scanner{ 
 	int lineNum; 
 public:
@@ -12,7 +15,8 @@ public:
    void makeToken(string);
    bool checkDelimiter(char);
    bool checkKeyword(string); 
-   int  nextState(string);  
+   int table(string);
+   void processFile(ifstream &infile, string);    
    Scanner(); 
 }; 
 
