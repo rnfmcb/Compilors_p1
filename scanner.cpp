@@ -155,29 +155,9 @@ int Scanner::table (string s){
 }
 
 
-void Scanner::processFile(ifstream &infile,string filename){ 
-	string line;
-	string type;  
-	infile.open(filename.c_str()); 
-	if(!infile){ 
-		cout << "Error opening file" << endl; 
-	} 
 
-	string word;	 
-	while(getline(infile,line)){   
-		setLine();
-		istringstream stm(line); 
-			while(stm >> word)   
-	        { 
-			cout << table(word) << endl; 
-    	    } 
-     } 
-    if (infile.eof()) { 
-		type = "eofTkn"; 
-		makeToken(type); 
-	} 
-	infile.close();   
-} 
+  
+
 
 void Scanner:: printTkn(Token *tkn){ 
 	cout << "Token type: " <<  tkn->tokenType << " Line number: " <<  tkn->lineNum << endl; 
