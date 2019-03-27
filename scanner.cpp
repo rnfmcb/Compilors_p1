@@ -156,7 +156,8 @@ int Scanner::table (string s){
 
 
 void Scanner::processFile(ifstream &infile,string filename){ 
-	string line; 
+	string line;
+	string type;  
 	infile.open(filename.c_str()); 
 	if(!infile){ 
 		cout << "Error opening file" << endl; 
@@ -171,6 +172,11 @@ void Scanner::processFile(ifstream &infile,string filename){
 			cout << table(word) << endl; 
     	    } 
      } 
+    if (infile.eof()) { 
+		type = "eofTkn"; 
+		makeToken(type); 
+	} 
+	infile.close();   
 } 
 
 void Scanner:: printTkn(Token *tkn){ 
