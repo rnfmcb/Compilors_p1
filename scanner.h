@@ -6,6 +6,7 @@
 #include <string> 
 #include <iostream> 
 #include <fstream> 
+#include "token.h" 
 
 class Scanner{ 
 	int lineNum; 
@@ -16,7 +17,8 @@ public:
    bool checkDelimiter(char);
    bool checkKeyword(string); 
    int table(string);
-   void processFile(ifstream &infile, string);    
+   void processFile(ifstream &infile, string); 
+   void printTkn(Token*);    
    Scanner(); 
 }; 
 

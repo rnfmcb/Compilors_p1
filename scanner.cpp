@@ -173,4 +173,6 @@ void Scanner::processFile(ifstream &infile,string filename){
      } 
 } 
 
-
+void Scanner:: printTkn(Token *tkn){ 
+	cout << "Token type: " <<  tkn->tokenType << " Line number: " <<  tkn->lineNum << endl; 
+} 
