@@ -15,6 +15,7 @@ using namespace std;
 
 
 void  BADriver(ifstream &infile,string filename){
+	cout << "Got to badriver" << endl; 
 	Scanner scanner; 
     string line;
      string type;
@@ -29,12 +30,13 @@ void  BADriver(ifstream &infile,string filename){
          istringstream stm(line);
              while(stm >> word)
              {
-             cout << scanner.table(word) << endl;
+                cout << scanner.table(word) << endl;
              }
       }
      if (infile.eof()) {
          type = "eofTkn";
-        scanner.makeToken(type);
+       	 scanner.makeToken(type);
+		  
     }
    infile.close();
  }

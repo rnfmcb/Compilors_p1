@@ -12,6 +12,7 @@
 #include <stdio.h> 
 #include <stdlib.h>   
 #include "token.h"
+#include "testScanner.h" 
 
 using namespace std; 
 
@@ -29,14 +30,17 @@ int main(int argc, char*argv[]){
       }
      file.close();
      ifstream infile;
-    // processFile(infile,filename);
+	 cout << "Recieved file" << endl; 
+	 BADriver(infile,filename);
+	 
+    
   }
   //take first argument and turn into file with .input1 as file name
   else if  (argc == 2) {
   string file = argv[1];
   string filename = file + ".input1";
   ifstream infile;
- // processFile(infile,filename);
+  BADriver(infile,filename); 
    }
   //If another file is piped
    else if (argc > 2 ){
