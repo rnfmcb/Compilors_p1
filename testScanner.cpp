@@ -26,22 +26,27 @@ void  BADriver(ifstream &infile,string filename){
         }
      cout << "Opened file " << endl; 
      string word;
-     while(getline(infile,line,'\n')&& !line.empty()){
+     while(getline(infile,line)&& !line.empty()){
         scanner.setLine();
 		cout << "Line is " << scanner.getLine() << endl; 
 		cout << "Line string is " << line << endl; 
          istringstream stm(line);
              while(stm >> word)
              {
-                cout << word << endl; 
+			   cout << word << endl; 
+               scanner.table(word); 
+			   if(infile.eof()) 
+				cout << "EOF" << endl;  
              }
       
         if (infile.eof()) {
-			Token token; 
+			cout << "EOFtkn at line " <<  scanner.getLine() << endl; 
+		/*	Token token; 
+			scanner.setLine(); 
             type = "eofTkn";
       	    scanner.getToken(type,&token);
 			scanner.print(&token); 
-		    break; 		  
+		    break; */		  
           }
        } 
   

@@ -31,7 +31,7 @@ void Scanner::makeToken(string type){
 	Token token;  
 	token.lineNum = getLine(); 
 	token.tokenType = type; 	
-
+    print(&token); 
 } 
 void Scanner::getToken(string type, Token *token){ 
 	token->lineNum = getLine(); 
@@ -124,7 +124,7 @@ int Scanner::table (string s){
     } 
   for(int i = 0; i < p[i]!= '\0'; i++) { 
 	  //If char is // return comTkn and filter rest of strings 
- 	 if ( p[i] && p[i+1] == '/'){
+ 	 if ( p[i] && p[i+1] == '\\'){
 		type = "comTkn";  
 		setLine(); 
 		makeToken(type);
@@ -152,8 +152,18 @@ int Scanner::table (string s){
 	else if (bool isKey = checkDelimiter(p[i])){ 
 		return 6; 
     } 
+	else if (p[i] == '\\'  && p[i+1] == 'n'){ //whitespace 
+	    cout <<"White space " << endl; 
+		return 7; 
+    }
+	else if (p[i] == EOF){  
+		type = "EOFTkn"; 
+		makeToken(type); 
+		return 8;  
+    } 
 	else{ //invalid charactor 
-		return 7;
+		cout << "Invalid charactor " << endl; 
+		return 9;
     } 
   }  		  
 }  
