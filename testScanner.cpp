@@ -18,26 +18,31 @@ void  BADriver(ifstream &infile,string filename){
 	cout << "Got to badriver" << endl; 
 	Scanner scanner; 
     string line;
-     string type;
-     infile.open(filename.c_str());
-     if(!infile){
-         cout << "Error opening file" << endl;
-     }
-
+    string type;
+    infile.open(filename.c_str()); 
+    if(infile.is_open()){  
+       if(!infile){
+           cout << "Error opening file" << endl;
+        }
+     cout << "Opened file " << endl; 
      string word;
-     while(getline(infile,line)){
+     while(getline(infile,line,'\n')&& !line.empty()){
         scanner.setLine();
-         istringstream stm(line);
+		cout << "Line is " << scanner.getLine() << endl; 
+		cout << "Line string is " << line << endl; 
+        /* istringstream stm(line);
              while(stm >> word)
              {
                 cout << scanner.table(word) << endl;
-             }
-      }
-     if (infile.eof()) {
-         type = "eofTkn";
-       	 scanner.makeToken(type);
-		  
-    }
-   infile.close();
+             }*/
+      
+      //   if (infile.eof()) {
+        //    type = "eofTkn";
+       	 //   scanner.makeToken(type);
+		 // break; 		  
+       // }
+       } 
+  
+  infile.close(); 
  }
- 
+}  
