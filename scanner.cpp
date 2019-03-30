@@ -53,57 +53,57 @@ bool Scanner:: checkDelimiter (char x) {
 //Check if keyword 
 bool Scanner::checkKeyword(string word){ 
  	string type;  
-	if(word.find("Begin")){ 
+	if(word == "Begin"){ 
 		type = "BeginTkn"; 
 		makeToken(type); 
 		return true; 
  	}  
-    else if(word.find("End")){ 
+    else if(word == "End"){ 
 		type = "EndTkn";
 		makeToken(type);
 		return true;  
 	}	
-    else if(word.find("Loop")){
+    else if(word == "Loop"){
 		type = "LoopTkn"; 
 		makeToken(type);
 		return true;  
 	} 
-	else if(word.find("Void")){ 
+	else if(word == "Void"){ 
 		type = "VoidTkn"; 
 		makeToken(type);
 		return true;  
 	} 
-	else if(word.find("Return")){
+	else if(word == "Return"){
 		type = "ReturnTkn"; 
 		makeToken(type);
 		return true;  
 	} 
-	else if(word.find("Read")){
+	else if(word == "Read"){
 		type = "ReadTkn"; 
 		makeToken(type);
 		return true;  
 	} 
-	else if(word.find("Output")){
+	else if(word == "Output"){
 		type = "outputTkn"; 
 		makeToken(type);
 		return true;  
  	} 
-	else if(word.find("Program")){ 
+	else if(word == "Program"){ 
 		type = "programTkn"; 
 		makeToken(type);
 		return true;  
 	} 
-	else if(word.find("IFF")){ 
+	else if(word == "IFF"){ 
 		type = "iffTkn"; 
 		makeToken(type); 
 		return true;   
 	} 
-	else if(word.find("Then")){ 
+	else if(word == "Then"){ 
 		type = "thenTkn"; 
 		makeToken(type);
 		return true; 
 	} 
-	else if (word.find("Let")){ 
+	else if (word == "Let"){ 
 		type = "letTkn"; 
 	    makeToken(type);
 		return true; 
@@ -140,8 +140,11 @@ int Scanner::table (string s){
 			bool isKey = checkKeyword(s); 
 			if (isKey == true) //Is keyword  
 				return 3; 
-           else //Is identifier 
+           else{ //Is identifier 
+				type = "IDTkn"; 
+				makeToken(type); 
 				return 4; 
+			}
         }
 		else{ //is lower case 
 			type = "ltrTkn"; 
