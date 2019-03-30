@@ -13,12 +13,13 @@ class Scanner{
 public:
    int getLine();  
    void setLine();     
-   void makeToken(string);
+   void getToken(string, Token*);
+   void makeToken(string); 
    bool checkDelimiter(char);
    bool checkKeyword(string); 
    int table(string);
    void processFile(ifstream &infile, string); 
-   void printTkn(Token*);    
+   void print(Token*);    
    Scanner(); 
 }; 
 

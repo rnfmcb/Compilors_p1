@@ -27,11 +27,15 @@ void Scanner:: setLine(){
 }  
 
 //Creates the token 
-void Scanner::makeToken(string type){ 
-	Token token; 
+void Scanner::makeToken(string type){
+	Token token;  
 	token.lineNum = getLine(); 
 	token.tokenType = type; 	
 
+} 
+void Scanner::getToken(string type, Token *token){ 
+	token->lineNum = getLine(); 
+	token->tokenType = type; 
 } 
 
 //Checks what type of token 
@@ -152,13 +156,9 @@ int Scanner::table (string s){
 		return 7;
     } 
   }  		  
-}
+}  
 
 
-
-  
-
-
-void Scanner:: printTkn(Token *tkn){ 
+void Scanner:: print(Token *tkn){ 
 	cout << "Token type: " <<  tkn->tokenType << " Line number: " <<  tkn->lineNum << endl; 
 } 

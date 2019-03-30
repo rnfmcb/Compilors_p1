@@ -30,17 +30,19 @@ void  BADriver(ifstream &infile,string filename){
         scanner.setLine();
 		cout << "Line is " << scanner.getLine() << endl; 
 		cout << "Line string is " << line << endl; 
-        /* istringstream stm(line);
+         istringstream stm(line);
              while(stm >> word)
              {
-                cout << scanner.table(word) << endl;
-             }*/
+                cout << word << endl; 
+             }
       
-      //   if (infile.eof()) {
-        //    type = "eofTkn";
-       	 //   scanner.makeToken(type);
-		 // break; 		  
-       // }
+        if (infile.eof()) {
+			Token token; 
+            type = "eofTkn";
+      	    scanner.getToken(type,&token);
+			scanner.print(&token); 
+		    break; 		  
+          }
        } 
   
   infile.close(); 
