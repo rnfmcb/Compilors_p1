@@ -108,6 +108,11 @@ bool Scanner::checkKeyword(string word){
 	    makeToken(type);
 		return true; 
 	}
+	else if (word == "INT") { 
+		type = "intTkn"; 
+		makeToken(type); 
+		return true; 
+	} 
 	else { 
 		return false;   
 	} 
