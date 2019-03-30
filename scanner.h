@@ -14,11 +14,13 @@ public:
    int getLine();  
    void setLine();     
    void getToken(string, Token*);
-   void makeToken(string); 
+   void makeToken(string,string);
+   void instance(string,Token*);  
    bool checkDelimiter(char);
    bool checkKeyword(string); 
    int table(string);
-   void processFile(ifstream &infile, string); 
+   void processFile(ifstream &infile, string);
+   bool validInt(string);  
    void print(Token*);    
    Scanner(); 
 }; 

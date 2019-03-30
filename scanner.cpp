@@ -6,7 +6,8 @@
 #include <ctype.h>
 #include <fstream>
 #include <sstream> 
-#include <string>    
+#include <string> 
+#include <stdlib.h>    
 #include "token.h"
 #include "scanner.h"  
 
@@ -27,12 +28,15 @@ void Scanner:: setLine(){
 }  
 
 //Creates the token 
-void Scanner::makeToken(string type){
+void Scanner::makeToken(string type,string inst){
 	Token token;  
 	token.lineNum = getLine(); 
-	token.tokenType = type; 	
+	token.tokenType = type;
+	token.instance = inst;  	
     print(&token); 
 } 
+ 
+
 void Scanner::getToken(string type, Token *token){ 
 	token->lineNum = getLine(); 
 	token->tokenType = type; 
@@ -53,64 +57,65 @@ bool Scanner:: checkDelimiter (char x) {
 //Check if keyword 
 bool Scanner::checkKeyword(string word){ 
  	string type;  
+	string inst = "Keyword"; 
 	if(word == "Begin"){ 
 		type = "BeginTkn"; 
-		makeToken(type); 
+		makeToken(type,inst); 
 		return true; 
  	}  
     else if(word == "End"){ 
 		type = "EndTkn";
-		makeToken(type);
+		makeToken(type,inst);
 		return true;  
 	}	
     else if(word == "Loop"){
 		type = "LoopTkn"; 
-		makeToken(type);
+		makeToken(type,inst);
 		return true;  
 	} 
 	else if(word == "Void"){ 
 		type = "VoidTkn"; 
-		makeToken(type);
+		makeToken(type,inst);
 		return true;  
 	} 
 	else if(word == "Return"){
 		type = "ReturnTkn"; 
-		makeToken(type);
+		makeToken(type,inst);
 		return true;  
 	} 
 	else if(word == "Read"){
 		type = "ReadTkn"; 
-		makeToken(type);
+		makeToken(type,inst);
 		return true;  
 	} 
 	else if(word == "Output"){
 		type = "outputTkn"; 
-		makeToken(type);
+		makeToken(type,inst);
 		return true;  
  	} 
 	else if(word == "Program"){ 
 		type = "programTkn"; 
-		makeToken(type);
+		makeToken(type,inst);
 		return true;  
 	} 
 	else if(word == "IFF"){ 
 		type = "iffTkn"; 
-		makeToken(type); 
+		makeToken(type,inst); 
 		return true;   
 	} 
 	else if(word == "Then"){ 
 		type = "thenTkn"; 
-		makeToken(type);
+		makeToken(type,inst);
 		return true; 
 	} 
 	else if (word == "Let"){ 
 		type = "letTkn"; 
-	    makeToken(type);
+	    makeToken(type,inst);
 		return true; 
 	}
 	else if (word == "INT") { 
 		type = "intTkn"; 
-		makeToken(type); 
+		makeToken(type,inst); 
 		return true; 
 	} 
 	else { 
@@ -131,29 +136,36 @@ int Scanner::table (string s){
 	  //If char is // return comTkn and filter rest of strings 
  	 if ( p[i] && p[i+1] == '\\'){
 		type = "comTkn";  
+		string inst = "Comment instance"; 
 		setLine(); 
-		makeToken(type);
+		makeToken(type,inst);
 		return 1;    	
    	} 
-    else if(isdigit(p[i])){ 
+else if(isdigit(p[i])){ 
+    bool isvalid =  false; 
+	isvalid = validInt(s);  
+	  cout << isvalid << endl; 
 	  type = "intTkn"; 
-	  makeToken(type);
+	  string inst = "Number instance";  
+	  makeToken(type,inst);
 	  return 2;  
     }
 	else if(isalpha(p[i])){ //If uppercase string, check for keyword 
-		if(isupper(p[i])){ 
+if(isupper(p[i])){ 
 			bool isKey = checkKeyword(s); 
 			if (isKey == true) //Is keyword  
 				return 3; 
            else{ //Is identifier 
-				type = "IDTkn"; 
-				makeToken(type); 
+				type = "IDTkn";
+				string inst = "identifier instance";   
+				makeToken(type,inst); 
 				return 4; 
 			}
         }
 		else{ //is lower case 
-			type = "ltrTkn"; 
-			makeToken(type);
+			type = "ltrTkn";
+			string inst = "Letter instance";  
+			makeToken(type,inst);
 			return 5;  
 		} 
      } 
@@ -161,22 +173,47 @@ int Scanner::table (string s){
 		return 6; 
     } 
 	else if (p[i] == '\\'  && p[i+1] == 'n'){ //whitespace 
-	    cout <<"White space " << endl; 
+	    type = "wsTkn"; 
+		string inst = "Whitespace instance"; 
+		makeToken(type,inst); 
 		return 7; 
     }
 	else if (p[i] == EOF){  
 		type = "EOFTkn"; 
-		makeToken(type); 
+		string inst = "End of file"; 
+		makeToken(type,inst); 
 		return 8;  
     } 
 	else{ //invalid charactor 
-		cout << "Invalid charactor " << endl; 
-		return 9;
+		cout << "Scanner error: Invalid charactor, line number: " <<  getLine()  << endl; 
+		exit(EXIT_FAILURE); 
     } 
   }  		  
 }  
 
+bool Scanner::validInt(string s) { 
+	char p[s.length()];
+	for(int i = 0; i < sizeof(p); i++){
+		p[i] = s[i]; 
+    } 
+	for(int i = 0; i < p[i]!= '\0'; i++) {
+ 
+		if (p[i] == '.') {
+		  cout<<"Scanner Error: Invalid int number, is decimal" << endl; 
+          exit (EXIT_FAILURE);
+		  return false; 
+		} 
+		else if (p[i] == '-'){ 
+			cout << "Scanner Error: negative number" << endl; 
+			exit (EXIT_FAILURE); 
+			return false; 
+		}
+		else return true;  
+	} 
+} 	
+         
+
 
 void Scanner:: print(Token *tkn){ 
-	cout << "Token type: " <<  tkn->tokenType << " Line number: " <<  tkn->lineNum << endl; 
+	cout << "Token type: " <<  tkn->tokenType << " Line number: " <<  tkn->lineNum << "Instance: " << tkn->instance << endl; 
 } 
