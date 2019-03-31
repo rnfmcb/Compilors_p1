@@ -215,5 +215,5 @@ bool Scanner::validInt(string s) {
 
 
 void Scanner:: print(Token *tkn){ 
-	cout << "Token type: " <<  tkn->tokenType << " Line number: " <<  tkn->lineNum << "Instance: " << tkn->instance << endl; 
+	cout << "Token type: " <<  tkn->tokenType << " Line number: " <<  tkn->lineNum << " Instance: " << tkn->instance << endl; 
 } 
