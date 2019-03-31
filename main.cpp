@@ -31,7 +31,7 @@ int main(int argc, char*argv[]){
      file.close();
      ifstream infile;
 	 cout << "Recieved file" << endl; 
-	 BADriver(infile,filename);
+	 FADriver(infile,filename);
 	 
     
   }
@@ -40,7 +40,7 @@ int main(int argc, char*argv[]){
   string file = argv[1];
   string filename = file + ".input1";
   ifstream infile;
-  BADriver(infile,filename); 
+  FADriver(infile,filename); 
    }
   //If another file is piped
    else if (argc > 2 ){

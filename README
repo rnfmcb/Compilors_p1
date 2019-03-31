@@ -1,0 +1,9 @@
+Rachel Festervand 
+Spring 2019 
+Program Translation 
+Project 1 
+
+This is project 1 for Program Translation. This is a scanner implimented with a FSA table and driver (option 3) 
+The file containing the table is called FSATable.xlsx. 
+There is a function in scanner.c that refers to the Table called table. Numbers should correspond to the states in the table. 
+The driver is in the testScanner file and called FADriver. 

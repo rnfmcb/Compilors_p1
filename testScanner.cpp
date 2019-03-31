@@ -14,8 +14,7 @@
 using namespace std; 
 
 
-void  BADriver(ifstream &infile,string filename){
-	//cout << "Got to badriver" << endl; 
+void  FADriver(ifstream &infile,string filename){ 
 	Scanner scanner; 
     string line;
     string type;
@@ -24,22 +23,20 @@ void  BADriver(ifstream &infile,string filename){
        if(!infile){
            cout << "Scanner Error: unable to open file" << endl;
         }
-     //cout << "Opened file " << endl; 
      string word;
 	 int state; 
 	 
      while(getline(infile,line)&& !line.empty()){
         scanner.setLine();
-	//	cout << "Line is " << scanner.getLine() << endl; 
-		cout << "Line string is " << line << endl; 
-        if (line[0] != '\\' && line[1] != '\\'){          
+	    //Comment filter 
+        if (line[0] != '\\'){          
 	
 			istringstream stm(line); 
               while(stm >> word)
               {
 			   cout << word << endl; 
                state = scanner.table(word); 
-			   cout << "State is " << state << endl;
+			   cout << "Final State is " << state << endl;
 			     
               }
            }
@@ -47,13 +44,7 @@ void  BADriver(ifstream &infile,string filename){
 			cout << "ComTkn at line " << scanner.getLine() << " Comment instance " << endl;  
 	    }    
         if (infile.eof()) {
-			cout << "EOFtkn at line " <<  scanner.getLine() << endl; 
-		/*	Token token; 
-			scanner.setLine(); 
-            type = "eofTkn";
-      	    scanner.getToken(type,&token);
-			scanner.print(&token); 
-		    break; */		  
+			cout << "EOFtkn at line " <<  scanner.getLine() << endl; 	  
           }
        } 
   

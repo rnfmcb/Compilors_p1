@@ -55,77 +55,77 @@ bool Scanner:: checkDelimiter (char x) {
 		return false;   	
 }
 //Check if keyword 
-bool Scanner::checkKeyword(string word){ 
+int  Scanner::checkKeyword(string word){ 
  	string type;  
 	string inst = "Keyword"; 
 	if(word == "Begin"){ 
 		type = "BeginTkn"; 
 		makeToken(type,inst); 
-		return true; 
+		return 7; 
  	}  
     else if(word == "End"){ 
 		type = "EndTkn";
 		makeToken(type,inst);
-		return true;  
+		return 8;  
 	}	
     else if(word == "Loop"){
 		type = "LoopTkn"; 
 		makeToken(type,inst);
-		return true;  
+		return 10;  
 	} 
 	else if(word == "Void"){ 
 		type = "VoidTkn"; 
 		makeToken(type,inst);
-		return true;  
+		return 11;  
 	} 
 	else if(word == "Return"){
 		type = "ReturnTkn"; 
 		makeToken(type,inst);
-		return true;  
+		return 12;  
 	} 
 	else if(word == "Read"){
 		type = "ReadTkn"; 
 		makeToken(type,inst);
-		return true;  
+		return 13;  
 	} 
 	else if(word == "Output"){
 		type = "outputTkn"; 
 		makeToken(type,inst);
-		return true;  
+		return 14;  
  	} 
 	else if(word == "Program"){ 
 		type = "programTkn"; 
 		makeToken(type,inst);
-		return true;  
+		return 15;  
 	} 
 	else if(word == "IFF"){ 
 		type = "iffTkn"; 
 		makeToken(type,inst); 
-		return true;   
+		return 16;   
 	} 
 	else if(word == "Then"){ 
 		type = "thenTkn"; 
 		makeToken(type,inst);
-		return true; 
+		return 17; 
 	} 
 	else if (word == "Let"){ 
 		type = "letTkn"; 
 	    makeToken(type,inst);
-		return true; 
+		return 18; 
 	}
 	else if (word == "INT") { 
 		type = "intTkn"; 
 		makeToken(type,inst); 
-		return true; 
+		return 9; 
 	} 
 	else { 
-		return false;   
+		return 0;   
 	} 
 	
 
 } 
 
-//This functions gets the next state 
+//This is the eof table. Numbers refer to the attached table  
 int Scanner::table (string s){
   string type;   
   char p[s.length()];    
@@ -139,7 +139,7 @@ int Scanner::table (string s){
 		string inst = "Comment instance"; 
 		setLine(); 
 		makeToken(type,inst);
-		return 1;    	
+		return 5;    	
    	} 
 	else if(isdigit(p[i])){ 
     	bool isvalid =  false; 
@@ -153,40 +153,40 @@ int Scanner::table (string s){
 	else if(isalpha(p[i])){ //If uppercase string, check for keyword 
 		if(isupper(p[i])){ 
 			bool isKey = checkKeyword(s); 
-			if (isKey == true) //Is keyword  
-				return 3; 
+			if (isKey != 0) //Is keyword  
+				return isKey; 
            else{ //Is identifier 
 				type = "IDTkn";
 				string inst = "identifier instance";   
 				makeToken(type,inst); 
-				return 4; 
+				return 6; 
 			}
         }
 		else{ //is lower case 
 			type = "ltrTkn";
 			string inst = "Letter instance";  
 			makeToken(type,inst);
-			return 5;  
+			return 4;  
 		} 
      } 
 	else if (bool isKey = checkDelimiter(p[i])){ 
     	if(s[0] == '-' && isdigit(s[1])) { 
 			cout << "Scanner error: no negative number" << endl; 
 			exit(EXIT_FAILURE); 
-			return 6; 
+			return 3; 
          } 
     } 
 	else if (p[i] == '\\'  && p[i+1] == 'n'){ //whitespace 
 	    type = "wsTkn"; 
 		string inst = "Whitespace instance"; 
 		makeToken(type,inst); 
-		return 7; 
+		return 1; 
     }
 	else if (p[i] == EOF){  
 		type = "EOFTkn"; 
 		string inst = "End of file"; 
 		makeToken(type,inst); 
-		return 8;  
+		return 1;  
     } 
 	else{ //invalid charactor 
 		cout << "Scanner error: Invalid charactor, line number: " <<  getLine()  << endl; 

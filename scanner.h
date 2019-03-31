@@ -17,7 +17,7 @@ public:
    void makeToken(string,string);
    void instance(string,Token*);  
    bool checkDelimiter(char);
-   bool checkKeyword(string); 
+   int checkKeyword(string); 
    int table(string);
    void processFile(ifstream &infile, string);
    bool validInt(string);  
