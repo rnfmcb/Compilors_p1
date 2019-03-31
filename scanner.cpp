@@ -141,17 +141,17 @@ int Scanner::table (string s){
 		makeToken(type,inst);
 		return 1;    	
    	} 
-else if(isdigit(p[i])){ 
-    bool isvalid =  false; 
-	isvalid = validInt(s);  
-	  cout << isvalid << endl; 
-	  type = "intTkn"; 
-	  string inst = "Number instance";  
-	  makeToken(type,inst);
-	  return 2;  
-    }
+	else if(isdigit(p[i])){ 
+    	bool isvalid =  false; 
+		isvalid = validInt(s);  
+	  	cout << isvalid << endl; 
+	  	type = "intTkn"; 
+	  	string inst = "Number instance";  
+	 	makeToken(type,inst);
+	  	return 2;  
+   	 }
 	else if(isalpha(p[i])){ //If uppercase string, check for keyword 
-if(isupper(p[i])){ 
+		if(isupper(p[i])){ 
 			bool isKey = checkKeyword(s); 
 			if (isKey == true) //Is keyword  
 				return 3; 
@@ -170,7 +170,11 @@ if(isupper(p[i])){
 		} 
      } 
 	else if (bool isKey = checkDelimiter(p[i])){ 
-		return 6; 
+    	if(s[0] == '-' && isdigit(s[1])) { 
+			cout << "Scanner error: no negative number" << endl; 
+			exit(EXIT_FAILURE); 
+			return 6; 
+         } 
     } 
 	else if (p[i] == '\\'  && p[i+1] == 'n'){ //whitespace 
 	    type = "wsTkn"; 
@@ -192,24 +196,18 @@ if(isupper(p[i])){
 }  
 
 bool Scanner::validInt(string s) { 
-	char p[s.length()];
-	for(int i = 0; i < sizeof(p); i++){
-		p[i] = s[i]; 
-    } 
-	for(int i = 0; i < p[i]!= '\0'; i++) {
- 
-		if (p[i] == '.') {
+        if(s.find(".")){ 
 		  cout<<"Scanner Error: Invalid int number, is decimal" << endl; 
           exit (EXIT_FAILURE);
 		  return false; 
 		} 
-		else if (p[i] == '-'){ 
+		 if (s[0] == '-'){ 
 			cout << "Scanner Error: negative number" << endl; 
 			exit (EXIT_FAILURE); 
 			return false; 
 		}
 		else return true;  
-	} 
+	 
 } 	
          
 
