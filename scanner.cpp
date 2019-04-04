@@ -44,77 +44,196 @@ void Scanner::getToken(string type, Token *token){
 
 //Checks what type of token 
 bool Scanner:: checkDelimiter (char x) { 
+	string type; 
+	string inst; 
 
     // =  <  >  :   +  -  *  /   %  . (  ) , { } ; [ ]
-    if ( x == delimiter[0] |  x == delimiter[1] | x == delimiter[2] | x == delimiter[3] |  x == delimiter[4] | x == delimiter[5] | x == delimiter[6]
-	| x == delimiter[7] | x == delimiter[8] | x == delimiter[9] | x == delimiter[10] | x == delimiter[11] | x == delimiter[12] | x == delimiter[13] |
-	 x == delimiter[14] | x == delimiter[15] | x == delimiter[16]){
-   		return true; 
-    }  	
- 	else 
-		return false;   	
+    if (x == '=') {
+	   type = "eqTkn"; 
+	   inst = "="; 
+	   makeToken(type,inst);
+		return true;  
+	} 
+	 if (x == '<') {
+        type = "LaTkn";
+        inst = "<";
+        makeToken(type,inst);
+		return true; 
+     }
+	 if (x == '>') {
+        type = "RaTkn";
+        inst = ">";
+        makeToken(type,inst);
+		return true; 
+     }
+	 if (x == ':') {
+        type = "colanTkn";
+        inst = ":";
+        makeToken(type,inst);
+		return true; 
+     }
+	 if (x == '+') {
+        type = "plusTkn";
+        inst = "+";
+        makeToken(type,inst);
+		return true; 
+     }
+	 if (x == '-') {
+        type = "minusTkn";
+        inst = "-";
+        makeToken(type,inst);
+		return true; 
+     }
+	 if (x == '/') {
+        type = "slashTkn";
+        inst = "/";
+        makeToken(type,inst);
+		return true; 
+     }
+	 if (x == '%') {
+        type = "percentTkn";
+        inst = "%";
+        makeToken(type,inst);
+		return true; 
+     }
+	 if (x == '.') {
+        type = "periodTkn";
+        inst = ".";
+        makeToken(type,inst);
+		return true; 
+     }
+	 if (x == '*') {
+        type = "starTkn";
+        inst = "*";
+        makeToken(type,inst);
+		return true; 
+     }
+	 if (x == '(') {
+        type = "lparaTkn";
+        inst = "(";
+        makeToken(type,inst);
+		return true; 
+     }
+	 if (x == ')') {
+        type = "RparaTkn";
+        inst = ")";
+        makeToken(type,inst);
+		return true; 
+     }
+	 if (x == '{') {
+        type = "LbraceTkn";
+        inst = "{";
+        makeToken(type,inst);
+		return true; 
+     }
+      if (x == '}') {
+        type = "RBraceTkn";
+        inst = "}";
+        makeToken(type,inst);
+		return true; 
+     }
+	 if (x == '[') {
+        type = "LBraceTkn";
+        inst = "[";
+        makeToken(type,inst);
+		return true; 
+     }
+	 if (x == ']') {
+        type = "RBracketTkn";
+        inst = "]";
+        makeToken(type,inst);
+		return true; 
+     }
+	 if (x == ',') {
+        type = "commaTkn";
+        inst = ",";
+        makeToken(type,inst);
+		return true; 
+     }
+
+	 if( x == ';'){ 
+		type = "semiTkn"; 
+		inst = ";"; 
+		makeToken(type, inst); 
+		return true; 
+	} 
+	else  
+		return false; 
+   	
 }
 //Check if keyword 
 int  Scanner::checkKeyword(string word){ 
- 	string type;  
-	string inst = "Keyword"; 
+ 	string type;
+	string inst;    
 	if(word == "Begin"){ 
-		type = "BeginTkn"; 
+		type = "BeginTkn";
+		inst = "Begin";  
 		makeToken(type,inst); 
 		return 7; 
  	}  
     else if(word == "End"){ 
-		type = "EndTkn";
+        type = "EndTkn";
+		inst = "End"; 
 		makeToken(type,inst);
 		return 8;  
 	}	
     else if(word == "Loop"){
-		type = "LoopTkn"; 
+		type = "LoopTkn";
+		inst = "Loop";  
 		makeToken(type,inst);
 		return 10;  
 	} 
 	else if(word == "Void"){ 
-		type = "VoidTkn"; 
+		type = "VoidTkn";
+		inst = "Void";  
 		makeToken(type,inst);
 		return 11;  
 	} 
 	else if(word == "Return"){
 		type = "ReturnTkn"; 
+		inst = "Return"; 
 		makeToken(type,inst);
 		return 12;  
 	} 
 	else if(word == "Read"){
-		type = "ReadTkn"; 
+		type = "ReadTkn";
+		inst = "Read";  
 		makeToken(type,inst);
 		return 13;  
 	} 
 	else if(word == "Output"){
-		type = "outputTkn"; 
+		type = "outputTkn";
+		inst = "Output";  
 		makeToken(type,inst);
 		return 14;  
  	} 
 	else if(word == "Program"){ 
-		type = "programTkn"; 
+		type = "programTkn";
+		inst = "Program";  
 		makeToken(type,inst);
 		return 15;  
 	} 
 	else if(word == "IFF"){ 
 		type = "iffTkn"; 
+		inst = "IFF"; 
 		makeToken(type,inst); 
 		return 16;   
 	} 
 	else if(word == "Then"){ 
-		type = "thenTkn"; 
+		type = "thenTkn";
+		inst = "Then";  
 		makeToken(type,inst);
 		return 17; 
 	} 
 	else if (word == "Let"){ 
-		type = "letTkn"; 
+		type = "letTkn";
+		inst = "Let";  
 	    makeToken(type,inst);
 		return 18; 
 	}
 	else if (word == "INT") { 
-		type = "intTkn"; 
+		type = "intTkn";
+		inst = "INT";  
 		makeToken(type,inst); 
 		return 9; 
 	} 
@@ -136,7 +255,7 @@ int Scanner::table (string s){
 	  //If char is // return comTkn and filter rest of strings 
  	 if ( p[i] && p[i+1] == '\\'){
 		type = "comTkn";  
-		string inst = "Comment instance"; 
+		string inst = "\\"; 
 		setLine(); 
 		makeToken(type,inst);
 		return 5;    	
@@ -146,7 +265,7 @@ int Scanner::table (string s){
 		isvalid = validInt(s);  
 	  	cout << isvalid << endl; 
 	  	type = "intTkn"; 
-	  	string inst = "Number instance";  
+	  	string inst = "Number";  
 	 	makeToken(type,inst);
 	  	return 2;  
    	 }
@@ -163,10 +282,8 @@ int Scanner::table (string s){
 			}
         }
 		else{ //is lower case 
-			type = "ltrTkn";
-			string inst = "Letter instance";  
-			makeToken(type,inst);
-			return 4;  
+			cout << "Error, tokens can not start with lower case" << endl; 
+			exit(EXIT_FAILURE);   
 		} 
      } 
 	else if (bool isKey = checkDelimiter(p[i])){ 
@@ -184,7 +301,7 @@ int Scanner::table (string s){
     }
 	else if (p[i] == EOF){  
 		type = "EOFTkn"; 
-		string inst = "End of file"; 
+		string inst = "EOF"; 
 		makeToken(type,inst); 
 		return 1;  
     } 
@@ -208,10 +325,9 @@ bool Scanner::validInt(string s) {
 		}
 		else return true;  
 	 
-} 	
-         
+}        
 
 
 void Scanner:: print(Token *tkn){ 
-	cout << "Token type: " <<  tkn->tokenType << " Line number: " <<  tkn->lineNum << " Instance: " << tkn->instance << endl; 
+	cout << "{" <<  tkn->tokenType << ",'" <<  tkn->instance << "'," << tkn->lineNum << "}" << endl; 
 } 

@@ -34,20 +34,22 @@ void  FADriver(ifstream &infile,string filename){
 			istringstream stm(line); 
               while(stm >> word)
               {
-			   cout << word << endl; 
+			  // cout << word << endl; 
                state = scanner.table(word); 
 			   cout << "Final State is " << state << endl;
-			     
+			   if(infile.eof()){ 
+				cout << "{EOFTkn,EOF," << scanner.getLine() << "}" << endl;                }   
               }
            }
 		else { 
 			cout << "ComTkn at line " << scanner.getLine() << " Comment instance " << endl;  
 	    }    
-        if (infile.eof()) {
-			cout << "EOFtkn at line " <<  scanner.getLine() << endl; 	  
-          }
+        
+				  
+         
        } 
   
+cout << "{EOFTkn,EOF," << scanner.getLine() << "}" << endl; 
   infile.close(); 
  }
 } 
