@@ -5,6 +5,7 @@
 #include <iostream> 
 #include <string> 
 #include <fstream>
+#include <stdlib.h> 
 #include <ctype.h> 
 #include <sstream>  
 #include "token.h" 
@@ -18,31 +19,39 @@ void  FADriver(ifstream &infile,string filename){
 	Scanner scanner; 
     string line;
     string type;
+
+   
     infile.open(filename.c_str()); 
     if(infile.is_open()){  
        if(!infile){
            cout << "Scanner Error: unable to open file" << endl;
+		   exit(EXIT_FAILURE); 
         }
+      if (infile.peek() == ifstream::traits_type::eof() ){
+         cout << "{EOFTkn,EOF,1}" << endl;
+         exit(EXIT_FAILURE);
+	   }
+
      string word;
 	 int state; 
 	 
-     while(getline(infile,line)&& !line.empty()){
+     while(getline(infile,line)){
         scanner.setLine();
 	    //Comment filter 
         if (line[0] != '\\'){          
 	
 			istringstream stm(line); 
-              while(stm >> word)
-              {
-			  // cout << word << endl; 
-               state = scanner.table(word); 
-			   cout << "Final State is " << state << endl;
-			   if(infile.eof()){ 
-				cout << "{EOFTkn,EOF," << scanner.getLine() << "}" << endl;                }   
+              while(stm >> word){
+			  	 if(word.empty()){ 
+					scanner.setLine(); 
+				 }   
+              	 state = scanner.table(word); 
+			  	 cout << "Final State is " << state << endl; 	  	
+				 
               }
            }
 		else { 
-			cout << "ComTkn at line " << scanner.getLine() << " Comment instance " << endl;  
+			cout << "{Comment filtered, " << scanner.getLine() << "}" << endl;  
 	    }    
         
 				  

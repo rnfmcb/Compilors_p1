@@ -253,7 +253,7 @@ int Scanner::table (string s){
     } 
   for(int i = 0; i < p[i]!= '\0'; i++) { 
 	  //If char is // return comTkn and filter rest of strings 
- 	 if ( p[i] && p[i+1] == '\\'){
+ 	 if ( p[i] == '\\'){
 		type = "comTkn";  
 		string inst = "\\"; 
 		setLine(); 
@@ -261,11 +261,10 @@ int Scanner::table (string s){
 		return 5;    	
    	} 
 	else if(isdigit(p[i])){ 
-    	bool isvalid =  false; 
-		isvalid = validInt(s);  
-	  	cout << isvalid << endl; 
+    	bool isvalid =  true; 
+		isvalid = validInt(s);   
 	  	type = "intTkn"; 
-	  	string inst = "Number";  
+	  	string inst = s;  
 	 	makeToken(type,inst);
 	  	return 2;  
    	 }
@@ -276,7 +275,7 @@ int Scanner::table (string s){
 				return isKey; 
            else{ //Is identifier 
 				type = "IDTkn";
-				string inst = "identifier instance";   
+				string inst = s;   
 				makeToken(type,inst); 
 				return 6; 
 			}
@@ -313,17 +312,9 @@ int Scanner::table (string s){
 }  
 
 bool Scanner::validInt(string s) { 
-        if(s.find(".")){ 
-		  cout<<"Scanner Error: Invalid int number, is decimal" << endl; 
-          exit (EXIT_FAILURE);
-		  return false; 
-		} 
-		 if (s[0] == '-'){ 
-			cout << "Scanner Error: negative number" << endl; 
-			exit (EXIT_FAILURE); 
-			return false; 
-		}
-		else return true;  
+    std::string::const_iterator it = s.begin();
+    while (it != s.end() && std::isdigit(*it)) ++it;
+    return !s.empty() && it == s.end();
 	 
 }        
 
