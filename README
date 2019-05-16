@@ -3,7 +3,28 @@ Spring 2019
 Program Translation 
 Project 1 
 
-This is project 1 for Program Translation. This is a scanner implimented with a FSA table and driver (option 3) 
-The file containing the table is called FSATable.xlsx. 
-There is a function in scanner.c that refers to the Table called table. Numbers should correspond to the states in the table. 
-The driver is in the testScanner file and called FADriver. 
+Implement scanner for the provided lexical definitions.
+
+The scanner is embedded and thus it will return one token every time it is called. Since the parser is not available yet, we will use a tester program to call the scanner.
+
+The scanner is implimented with a FSA table and driver 
+
+FSA table + driver 
+
+Implement a token as a triplet {tokenID, tokenInstance, line#} (if doing option with line numbers)
+
+Alphabet
+all English letters (upper and lower), digits, plus the extra characters as seen below, plus WS
+No other characters allowed and they should generate errors
+Identifiers
+begin with a an upper case letter and
+continue with any number of letters and digits 
+No identifier is longer than 8 characters
+Keywords (reserved, suggested individual tokens)
+Begin  End Loop Void INT Return Read Output Program IFF  Then Let
+Operators and delimiters group
+=  <  >  :   +  -  *  /   %  . (  ) , { } ; [ ]
+Integers
+any sequence of decimal digits, no sign, no decimal point
+Assume no number longer than 8 characters
+Comments start with \ and end with new line
